@@ -169,6 +169,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let checkedWord = self.wordResult.text ?? ""
         checkedWords.append(checkedWord)
         tableResults.reloadData()
+        restartWordResult()
     }
     
     
