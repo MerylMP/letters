@@ -1,0 +1,6 @@
+framework module Pods_letters {
+  umbrella header "Pods-letters-umbrella.h"
+
+  export *
+  module * { export * }
+}
