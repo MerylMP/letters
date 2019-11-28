@@ -65,7 +65,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "lettersCell", for: indexPath) as! LetterViewCell
         
         cell.letterButton.setTitle(self.randomLetters[indexPath.row], for: .normal)
-        cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        cell.letterButton.backgroundColor = #colorLiteral(red: 0.107338123, green: 0.2766298652, blue: 0.3985479474, alpha: 1)
         cell.letterButton.isSelected = false
         cell.letterButton.isEnabled = true
         
@@ -149,7 +149,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
     }
-   
+    
     
     @IBAction func checkWord(_ sender: UIButton) {
         
@@ -159,11 +159,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         apiClient.checkWord(word: checkedWord, completion:{ result in
             
             print("WORD EVALUATED: \(result)")
-                
-                
-                
-                
-                print("WORD IS CORRECT")
+            
+            
+            if result{
                 
                 if !self.checkedWords.contains(checkedWord){
                     self.checkedWords.append(checkedWord)
@@ -178,7 +176,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     let indexPath = NSIndexPath(row: i, section: 0)
                     let cell = self.collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
                     
-                    cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+                    cell.letterButton.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
                     cell.letterButton.isSelected = false
                     cell.letterButton.isEnabled = true
                 }
@@ -200,6 +198,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         self.timeLeft = 60
         self.timerLabel.text = String(timeLeft)
+        randomLetters.removeAll()
         changeLetters(numberOfTypeOfLetters)
         startCountDown()
     }
