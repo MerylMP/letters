@@ -160,25 +160,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             print("WORD EVALUATED: \(result)")
             
-            
-            if result{
-                
-                if !self.checkedWords.contains(checkedWord){
-                    self.checkedWords.append(checkedWord)
-                } else {
-                    print("word checked in previous attempt")
-                }
-                
-                self.tableResults.reloadData()
-                self.restartWordResult()
-                
-                for i in 0..<self.collectionView.numberOfItems(inSection: 0) {
-                    let indexPath = NSIndexPath(row: i, section: 0)
-                    let cell = self.collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
+            if result {
+                do {
+                    try GameErrors.validateWord(word: checkedWord,
+                                               wordList: self.checkedWords)
                     
-                    cell.letterButton.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
-                    cell.letterButton.isSelected = false
-                    cell.letterButton.isEnabled = true
+                    self.checkedWords.append(checkedWord)
+                    self.tableResults.reloadData()
+                    self.restartWordResult()
+                    
+                    for i in 0..<self.collectionView.numberOfItems(inSection: 0) {
+                        let indexPath = NSIndexPath(row: i, section: 0)
+                        let cell = self.collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
+                        
+                        cell.letterButton.backgroundColor = #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
+                        cell.letterButton.isSelected = false
+                        cell.letterButton.isEnabled = true
+                    }
+                    
+                } catch WordErrorCase.wordIsEmpty {
+                    print("Please create a word")
+                } catch WordErrorCase.wordAlreadyUsed {
+                    print("This word has been used before. Try another one")
+                } catch {
+                    print("Word error")
                 }
                 
             } else {

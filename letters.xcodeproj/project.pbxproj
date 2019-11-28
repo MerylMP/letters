@@ -15,7 +15,7 @@
 		446CDBE1238BEADC002BB056 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446CDBE0238BEADC002BB056 /* Assets.xcassets */; };
 		446CDBE4238BEADC002BB056 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 446CDBE2238BEADC002BB056 /* LaunchScreen.storyboard */; };
 		446CDBEE238BEE62002BB056 /* LetterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446CDBED238BEE62002BB056 /* LetterViewCell.swift */; };
-		44E01C5F238FFC400065A1B6 /* WordError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E01C5E238FFC400065A1B6 /* WordError.swift */; };
+		44E01C5F238FFC400065A1B6 /* GameErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E01C5E238FFC400065A1B6 /* GameErrors.swift */; };
 		44EC14DE238E97DF001A84DC /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EC14DD238E97DF001A84DC /* ApiClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +29,7 @@
 		446CDBE3238BEADC002BB056 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		446CDBE5238BEADC002BB056 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		446CDBED238BEE62002BB056 /* LetterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetterViewCell.swift; sourceTree = "<group>"; };
-		44E01C5E238FFC400065A1B6 /* WordError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordError.swift; sourceTree = "<group>"; };
+		44E01C5E238FFC400065A1B6 /* GameErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameErrors.swift; sourceTree = "<group>"; };
 		44EC14DD238E97DF001A84DC /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		AC07A51F0B66822FC6F9D412 /* Pods_letters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_letters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11861545B3E1FA30E94744F /* Pods-letters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-letters.release.xcconfig"; path = "Target Support Files/Pods-letters/Pods-letters.release.xcconfig"; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 				446CDBE5238BEADC002BB056 /* Info.plist */,
 				446CDBED238BEE62002BB056 /* LetterViewCell.swift */,
 				44EC14DD238E97DF001A84DC /* ApiClient.swift */,
-				44E01C5E238FFC400065A1B6 /* WordError.swift */,
+				44E01C5E238FFC400065A1B6 /* GameErrors.swift */,
 			);
 			path = letters;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44E01C5F238FFC400065A1B6 /* WordError.swift in Sources */,
+				44E01C5F238FFC400065A1B6 /* GameErrors.swift in Sources */,
 				446CDBDC238BEADB002BB056 /* ViewController.swift in Sources */,
 				446CDBD8238BEADB002BB056 /* AppDelegate.swift in Sources */,
 				446CDBEE238BEE62002BB056 /* LetterViewCell.swift in Sources */,
