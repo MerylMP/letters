@@ -23,7 +23,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var numberOfTypeOfLetters = 5
     
-    var letters = ["A","B","C","D","E"]
     let consonants:[String] = ["B","C","D","F","G","H","J","K","L","M","N","O","P","Q","V","W","X","Y","Z"]
     let vowels:[String] = ["A","E","I","O","U"]
     
@@ -37,8 +36,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var checkedWords:[String] = []
   
-    
-    
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.checkedWords.count
@@ -52,23 +50,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-    
-    
-
-    
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
         
     }
     
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //TODO letters para antes del random. borrar.
         return self.randomLetters.count
-//        return letters.count
     }
     
     
@@ -193,16 +182,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         restartWordResult()
         checkedWords.removeAll()
         
-//        //TODO llamada a la API
-//        let apiClient:ApiClient = ApiClient()
-//        ApiClient.checkWord(word:"fakeword", completion:{ result in
-//
-//        //update labels or whatever you want to do
-//        print("word evaluated: \(result)")
-//        })
+        //TODO llamada a la API
+        let apiClient:ApiClient = ApiClient()
+        apiClient.checkWord(word:"casa", completion:{ result in
 
-        
-        
+        //update labels or whatever you want to do
+        print("WORD EVALUATED: \(result)")
+        })
     }
 }
 
