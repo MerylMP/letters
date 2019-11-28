@@ -134,18 +134,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBAction func deleteLastLetter(_ sender: UIButton) {
         //TODO OPTIONAL: crear array de total letras y letras disponibles. A la hora de borrar, eliminar entonces de disponibles.
         
-        let lastLetter:String = String((self.wordResult.text?.last)!)
-        self.wordResult.text?.removeLast()
-        
-        for i in 0..<collectionView.numberOfItems(inSection: 0){
-            let indexPath = NSIndexPath(row: i, section: 0)
-            let cell = collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
+        if (self.wordResult.text != nil  &&  self.wordResult.text != "") {
+            let lastLetter:String = String((self.wordResult.text?.last)!)
+            self.wordResult.text?.removeLast()
             
-            if cell.letterButton.currentTitle ==  lastLetter {
-                cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
-                cell.letterButton.isSelected = false
-                cell.letterButton.isEnabled = true
-                return
+            for i in 0..<collectionView.numberOfItems(inSection: 0){
+                let indexPath = NSIndexPath(row: i, section: 0)
+                let cell = collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
+                
+                if cell.letterButton.currentTitle ==  lastLetter {
+                    cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+                    cell.letterButton.isSelected = false
+                    cell.letterButton.isEnabled = true
+                }
             }
         }
     }
