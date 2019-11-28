@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
     
-   
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var wordResult: UILabel!
-
+    
     @IBOutlet weak var timerLabel: UILabel!
     
     
@@ -31,12 +31,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     //TABLE
-
+    
     @IBOutlet weak var tableResults: UITableView!
     
     var checkedWords:[String] = []
-  
-
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.checkedWords.count
@@ -67,6 +67,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.letterButton.setTitle(self.randomLetters[indexPath.row], for: .normal)
         cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         cell.letterButton.isSelected = false
+        cell.letterButton.isEnabled = true
         
         return cell
     }
@@ -74,17 +75,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func changeLetters(_ n:Int) {
         // game shows 5 vowels and 5 letters. Each letter may appear more than once.
-                
+        
         for _ in 0..<n {
             let vowelToShow = vowels[Int(arc4random_uniform(UInt32(vowels.count)))]
             let consonantToSwhow = consonants[Int(arc4random_uniform(UInt32(consonants.count)))]
-        
+            
             randomLetters.append(vowelToShow)
             randomLetters.append(consonantToSwhow)
             collectionView.reloadData()
         }
     }
-  
+    
     
     
     func startCountDown() {
@@ -104,7 +105,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-    
     func restartWordResult() {
         self.wordResult.text = ""
     }
@@ -115,7 +115,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
- 
+    
     @IBAction func clickLetter(_ sender: UIButton) {
         
         sender.isSelected = true
@@ -129,7 +129,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         sender.isEnabled = false
         
     }
-
     
     
     @IBAction func deleteLastLetter(_ sender: UIButton) {
@@ -150,17 +149,46 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
         }
     }
-    
+   
     
     @IBAction func checkWord(_ sender: UIButton) {
-        //TODO controlar después que las checked words son sólo las que coinciden con la API.
         
         let checkedWord = self.wordResult.text ?? ""
-        checkedWords.append(checkedWord)
-        tableResults.reloadData()
-        restartWordResult()
+        
+        let apiClient:ApiClient = ApiClient()
+        apiClient.checkWord(word: checkedWord, completion:{ result in
+            
+            print("WORD EVALUATED: \(result)")
+                
+                
+                
+                
+                print("WORD IS CORRECT")
+                
+                if !self.checkedWords.contains(checkedWord){
+                    self.checkedWords.append(checkedWord)
+                } else {
+                    print("word checked in previous attempt")
+                }
+                
+                self.tableResults.reloadData()
+                self.restartWordResult()
+                
+                for i in 0..<self.collectionView.numberOfItems(inSection: 0) {
+                    let indexPath = NSIndexPath(row: i, section: 0)
+                    let cell = self.collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
+                    
+                    cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+                    cell.letterButton.isSelected = false
+                    cell.letterButton.isEnabled = true
+                }
+                
+            } else {
+                
+                print("WORD IS NOT CORRECT")
+            }
+        })
     }
-    
     
     
     @IBAction func startNewGame(_ sender: UIButton) {
@@ -181,14 +209,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         restartWordResult()
         checkedWords.removeAll()
-        
-        //TODO llamada a la API
-        let apiClient:ApiClient = ApiClient()
-        apiClient.checkWord(word:"casa", completion:{ result in
-
-        //update labels or whatever you want to do
-        print("WORD EVALUATED: \(result)")
-        })
     }
 }
 
