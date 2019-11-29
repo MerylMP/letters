@@ -16,8 +16,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var wordResult: UILabel!
     
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var wordMessage: UILabel!
+    @IBOutlet weak var punctuation: UILabel!
     
-    
+    var points:Int = 0
     var timer:Timer?
     var timeLeft = 60
     
@@ -107,11 +109,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func restartWordResult() {
         self.wordResult.text = ""
+        self.wordMessage.text = ""
     }
     
     
     func changeWordResult(letterAdded: String) {
         self.wordResult.text?.append(letterAdded)
+    }
+    
+    
+    func updateScore(word:String) {
+        self.points += word.count
+        self.punctuation.text = "Points: \(points)"
     }
     
     
@@ -137,13 +146,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if (self.wordResult.text != nil  &&  self.wordResult.text != "") {
             let lastLetter:String = String((self.wordResult.text?.last)!)
             self.wordResult.text?.removeLast()
+            self.wordMessage.text = ""
             
             for i in 0..<collectionView.numberOfItems(inSection: 0){
                 let indexPath = NSIndexPath(row: i, section: 0)
                 let cell = collectionView.cellForItem(at: indexPath as IndexPath) as!LetterViewCell
                 
                 if cell.letterButton.currentTitle ==  lastLetter {
-                    cell.letterButton.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+                    cell.letterButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8470588235)
                     cell.letterButton.isSelected = false
                     cell.letterButton.isEnabled = true
                 }
@@ -166,6 +176,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     try GameErrors.validateWord(word: checkedWord,
                                                wordList: self.checkedWords)
                     
+                    self.updateScore(word: checkedWord)
                     self.checkedWords.append(checkedWord)
                     self.tableResults.reloadData()
                     self.restartWordResult()
@@ -180,9 +191,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     }
                     
                 } catch WordErrorCase.wordIsEmpty {
-                    print("Please create a word")
+                    print("Word is empty")
+                    self.wordMessage.text = "Word is empty"
+
                 } catch WordErrorCase.wordAlreadyUsed {
                     print("This word has been used before. Try another one")
+                    self.wordMessage.text = "This word has been used before. Try another one"
+                    
                 } catch {
                     print("Word error")
                 }
@@ -190,6 +205,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             } else {
                 
                 print("WORD IS NOT CORRECT")
+                self.wordMessage.text = "Wrong word!"
             }
         })
     }
@@ -203,9 +219,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         self.timeLeft = 60
+        self.points = 0
         self.timerLabel.text = String(timeLeft)
-        randomLetters.removeAll()
+        self.checkedWords.removeAll()
+        tableResults.reloadData()
+        self.randomLetters.removeAll()
         changeLetters(numberOfTypeOfLetters)
+        self.punctuation.text = "Points: \(points)"
         startCountDown()
     }
     
@@ -214,6 +234,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         restartWordResult()
         checkedWords.removeAll()
+        self.wordMessage.text = ""
+        self.points = 0
     }
 }
 
